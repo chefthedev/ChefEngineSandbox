@@ -11,11 +11,9 @@ namespace ChefEngineSandbox
     /// </summary>
     public class SandboxGame : Engine
     {
-        // The slime texture region.
-        private TextureRegion _slime;
-
-        // The bat texture region.
-        private TextureRegion _bat;
+        // The slime and bat animated sprites.
+        private AnimatedSprite _slime;
+        private AnimatedSprite _bat;
 
         /// <summary>
         /// Constructor for the SandboxGame class.
@@ -31,8 +29,9 @@ namespace ChefEngineSandbox
 
             base.Initialize();
 
-            // TODO: Add any initialization that is dependent on LoadContent() here.
-            // This is because LoadContent() is called in the last step of base.Initialize().
+            // Adjust the properties of the slime and bat animated sprites.
+            _slime.Scale = new Vector2(4.0f);
+            _bat.Scale = new Vector2(4.0f);
         }
 
         protected override void LoadContent()
@@ -40,9 +39,9 @@ namespace ChefEngineSandbox
             // Load the texture atlas from the xml config file.
             TextureAtlas atlas = TextureAtlas.CreateFromFile(Content, "images/atlas-definition.xml");
 
-            // Retrieve the slime and bat texture regions from the atlas.
-            _slime = atlas.GetRegion("slime");
-            _bat = atlas.GetRegion("bat");
+            // Create the slime and bat animated sprite from the atlas.
+            _slime = atlas.CreateAnimatedSprite("slime-animation");
+            _bat = atlas.CreateAnimatedSprite("bat-animation");
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,8 +49,11 @@ namespace ChefEngineSandbox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here.
+            // Update the slime and bat animated sprites.
+            _slime.Update(gameTime);
+            _bat.Update(gameTime);
 
+            // Call the base class's Update method.
             base.Update(gameTime);
         }
 
@@ -63,11 +65,9 @@ namespace ChefEngineSandbox
             // Begin the sprite batch to prepare for 2D rendering with point sampling for sharp pixel art.
             SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            // Draw the slime texture region at a scale of 4.0.
-            _slime.Draw(SpriteBatch, Vector2.Zero, Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
-
-            // Draw the bat texture region 10px to the right of the slime at a scale of 4.0.
-            _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0), Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 1.0f);
+            // Draw the slime and bat animated sprites.
+            _slime.Draw(SpriteBatch, Vector2.Zero);
+            _bat.Draw(SpriteBatch, new Vector2(_slime.Width + 10, 0));
 
             // End the sprite batch to finish 2D rendering.
             SpriteBatch.End();
