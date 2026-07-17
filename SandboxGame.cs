@@ -52,9 +52,6 @@ namespace ChefEngineSandbox
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // Update the slime and bat animated sprites.
             _slime.Update(gameTime);
             _bat.Update(gameTime);
@@ -72,38 +69,35 @@ namespace ChefEngineSandbox
         /// <param name="gameTime">The game time instance.</param>
         private void CheckAndHandleKeyboardInput(GameTime gameTime)
         {
-            // Get the current keyboard state.
-            KeyboardState keyboardState = Keyboard.GetState();
-
             // Calculate the adjusted movement speed with delta time.
             float adjustedMovementSpeed = MOVEMENT_SPEED * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // If the space bar is pressed.
-            if (keyboardState.IsKeyDown(Keys.Space))
+            if (Input.Keyboard.IsKeyDown(Keys.Space))
             {
                 // Multiply the movement speed to apply a sprint mechanic.
                 adjustedMovementSpeed *= 5f;
             }
             // If the W key is pressed.
-            if (keyboardState.IsKeyDown(Keys.W))
+            if (Input.Keyboard.IsKeyDown(Keys.W))
             {
                 // Move the slime up.
                 _slimePosition.Y -= adjustedMovementSpeed;
             }
             // If the S key is pressed.
-            if (keyboardState.IsKeyDown(Keys.S))
+            if (Input.Keyboard.IsKeyDown(Keys.S))
             {
                 // Move the slime down.
                 _slimePosition.Y += adjustedMovementSpeed;
             }
             // If the A key is pressed.
-            if (keyboardState.IsKeyDown(Keys.A))
+            if (Input.Keyboard.IsKeyDown(Keys.A))
             {
                 // Move the slime left.
                 _slimePosition.X -= adjustedMovementSpeed;
             }
             // If the D key is pressed.
-            if (keyboardState.IsKeyDown(Keys.D))
+            if (Input.Keyboard.IsKeyDown(Keys.D))
             {
                 // Move the slime right.
                 _slimePosition.X += adjustedMovementSpeed;
