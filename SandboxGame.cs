@@ -15,6 +15,12 @@ namespace ChefEngineSandbox
         private AnimatedSprite _slime;
         private AnimatedSprite _bat;
 
+        // The slime's current position.
+        private Vector2 _slimePosition;
+
+        // Constant for the slime's movement speed.
+        private const float MOVEMENT_SPEED = 100.0f;
+
         /// <summary>
         /// Constructor for the SandboxGame class.
         /// </summary>
@@ -53,8 +59,55 @@ namespace ChefEngineSandbox
             _slime.Update(gameTime);
             _bat.Update(gameTime);
 
+            // Check and handle keyboard input events.
+            CheckAndHandleKeyboardInput(gameTime);
+
             // Call the base class's Update method.
             base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Checks the current keyboard state and moves the slime character.
+        /// </summary>
+        /// <param name="gameTime">The game time instance.</param>
+        private void CheckAndHandleKeyboardInput(GameTime gameTime)
+        {
+            // Get the current keyboard state.
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            // Calculate the adjusted movement speed with delta time.
+            float adjustedMovementSpeed = MOVEMENT_SPEED * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // If the space bar is pressed.
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                // Multiply the movement speed to apply a sprint mechanic.
+                adjustedMovementSpeed *= 5f;
+            }
+            // If the W key is pressed.
+            if (keyboardState.IsKeyDown(Keys.W))
+            {
+                // Move the slime up.
+                _slimePosition.Y -= adjustedMovementSpeed;
+            }
+            // If the S key is pressed.
+            if (keyboardState.IsKeyDown(Keys.S))
+            {
+                // Move the slime down.
+                _slimePosition.Y += adjustedMovementSpeed;
+            }
+            // If the A key is pressed.
+            if (keyboardState.IsKeyDown(Keys.A))
+            {
+                // Move the slime left.
+                _slimePosition.X -= adjustedMovementSpeed;
+            }
+            // If the D key is pressed.
+            if (keyboardState.IsKeyDown(Keys.D))
+            {
+                // Move the slime right.
+                _slimePosition.X += adjustedMovementSpeed;
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -66,7 +119,7 @@ namespace ChefEngineSandbox
             SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             // Draw the slime and bat animated sprites.
-            _slime.Draw(SpriteBatch, Vector2.Zero);
+            _slime.Draw(SpriteBatch, _slimePosition);
             _bat.Draw(SpriteBatch, new Vector2(_slime.Width + 10, 0));
 
             // End the sprite batch to finish 2D rendering.
