@@ -34,7 +34,7 @@ namespace ChefEngineSandbox
         public override void Draw()
         {
             // Draw the bat's animated sprite at the current position.
-            AnimatedSprite.Draw(Engine.SpriteBatch, Position);
+            AnimatedSprite.Draw(Engine.Instance.SpriteBatch, Position);
         }
     }
 }

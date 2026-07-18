@@ -33,7 +33,7 @@ namespace ChefEngineSandbox
         public override void Update(GameTime gameTime)
         {
             // Handle the keyboard input.
-            CheckAndHandleKeyboardInput(Engine.Input, gameTime);
+            CheckAndHandleKeyboardInput(Engine.Instance.Input, gameTime);
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
@@ -42,7 +42,7 @@ namespace ChefEngineSandbox
         public override void Draw()
         {
             // Draw the player's animated sprite at the current position.
-            AnimatedSprite.Draw(Engine.SpriteBatch, Position);
+            AnimatedSprite.Draw(Engine.Instance.SpriteBatch, Position);
         }
 
         /// <summary>
