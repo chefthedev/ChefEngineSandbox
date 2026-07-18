@@ -2,6 +2,7 @@
 using ChefEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace ChefEngineSandbox
 {
@@ -10,12 +11,12 @@ namespace ChefEngineSandbox
     /// </summary>
     public class SandboxGame : Engine
     {
+        // The entity list.
+        private List<Entity> _entities;
+
         // The player and bat animated sprites.
         private AnimatedSprite _playerSprite;
         private AnimatedSprite _batSprite;
-
-        // The player.
-        private Player _player;
 
         /// <summary>
         /// Constructor for the SandboxGame class.
@@ -27,16 +28,23 @@ namespace ChefEngineSandbox
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here.
-
+            // Call the base class's Initialize method.
             base.Initialize();
+
+            // Initialize the entity list.
+            _entities = new List<Entity>();
 
             // Adjust the properties of the player and bat animated sprites.
             _playerSprite.Scale = new Vector2(4.0f);
             _batSprite.Scale = new Vector2(4.0f);
 
-            // Initialize the player.
-            _player = new Player(new Vector2(0.0f), _playerSprite);
+            // Initialize the player and add it to the entity list.
+            Entity player = new Player(new Vector2(0.0f), _playerSprite);
+            _entities.Add(player);
+
+            // Initialize the bat and add it to the entity list.
+            Entity bat = new Bat(new Vector2(50.0f), _batSprite);
+            _entities.Add(bat);
         }
 
         protected override void LoadContent()
@@ -44,18 +52,20 @@ namespace ChefEngineSandbox
             // Load the texture atlas from the xml config file.
             TextureAtlas atlas = TextureAtlas.CreateFromFile(Content, "images/atlas-definition.xml");
 
-            // Create the player and bat animated sprite from the atlas.
+            // Create the player and bat animated sprite from the atlas and adjust their scale.
             _playerSprite = atlas.CreateAnimatedSprite("slime-animation");
             _batSprite = atlas.CreateAnimatedSprite("bat-animation");
+            _playerSprite.Scale = new Vector2(4.0f);
+            _batSprite.Scale = new Vector2(4.0f);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            // Update the player.
-            _player.Update(Input, gameTime);
-
-            // Update the bat animated sprite.
-            _batSprite.Update(gameTime);
+            // Update all the entities.
+            foreach (Entity entity in _entities)
+            {
+                entity.Update(gameTime);
+            }
 
             // Call the base class's Update method.
             base.Update(gameTime);
@@ -69,11 +79,11 @@ namespace ChefEngineSandbox
             // Begin the sprite batch to prepare for 2D rendering with point sampling for sharp pixel art.
             SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            // Draw the player.
-            _player.Draw(SpriteBatch);
-
-            // Draw the bat animated sprite.
-            _batSprite.Draw(SpriteBatch, new Vector2(50, 0));
+            // Draw all the entities.
+            foreach (Entity entity in _entities)
+            {
+                entity.Draw();
+            }
 
             // End the sprite batch to finish 2D rendering.
             SpriteBatch.End();

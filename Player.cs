@@ -1,19 +1,16 @@
-﻿using ChefEngine.Graphics;
+﻿using ChefEngine.Core;
+using ChefEngine.Graphics;
 using ChefEngine.Input;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace ChefEngineSandbox
 {
     /// <summary>
-    /// Player class for representing the player.
+    /// Player class for representing a player.
     /// </summary>
-    public class Player
+    public class Player : Entity
     {
-        // The player's position.
-        public Vector2 Position { get; private set; }
-
         // The player's movement speed.
         public float MovementSpeed { get; private set; } = 50.0f;
 
@@ -23,8 +20,8 @@ namespace ChefEngineSandbox
         /// <summary>
         /// Constructor for the player class.
         /// </summary>
-        /// <param name="position"></param>
-        /// <param name="animatedSprite"></param>
+        /// <param name="position">The initial position of the player.</param>
+        /// <param name="animatedSprite">The animated sprite of the player.</param>
 
         public Player(Vector2 position, AnimatedSprite animatedSprite)
         {
@@ -33,28 +30,19 @@ namespace ChefEngineSandbox
             AnimatedSprite = animatedSprite;
         }
 
-        /// <summary>
-        /// Updates the state of the player based on the parameters.
-        /// </summary>
-        /// <param name="input">The input manager instance.</param>
-        /// <param name="gameTime">The game time instance.</param>
-        public void Update(InputManager input, GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Handle the keyboard input.
-            CheckAndHandleKeyboardInput(input, gameTime);
+            CheckAndHandleKeyboardInput(Engine.Input, gameTime);
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
         }
 
-        /// <summary>
-        /// Submit the player for drawing to the current sprite batch.
-        /// </summary>
-        /// <param name="spriteBatch">The sprite batch to draw the player in.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
             // Draw the player's animated sprite at the current position.
-            AnimatedSprite.Draw(spriteBatch, Position);
+            AnimatedSprite.Draw(Engine.SpriteBatch, Position);
         }
 
         /// <summary>
