@@ -49,12 +49,12 @@ namespace ChefEngineSandbox
 
         protected override void LoadContent()
         {
-            // Load the texture atlas from the xml config file.
-            TextureAtlas atlas = TextureAtlas.CreateFromFile(Content, "images/atlas-definition.xml");
+            // Load the texture atlas from the json file.
+            TextureAtlas atlas = TextureAtlasLoader.Load("images/atlas-definition.json");
 
             // Create the player and bat animated sprite from the atlas and adjust their scale.
-            _playerSprite = atlas.CreateAnimatedSprite("slime-animation");
-            _batSprite = atlas.CreateAnimatedSprite("bat-animation");
+            _playerSprite = new AnimatedSprite(atlas.GetAnimation("slime-animation"));
+            _batSprite = new AnimatedSprite(atlas.GetAnimation("bat-animation"));
             _playerSprite.Scale = new Vector2(4.0f);
             _batSprite.Scale = new Vector2(4.0f);
         }
