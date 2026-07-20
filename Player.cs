@@ -1,6 +1,5 @@
 ﻿using ChefEngine.Core;
 using ChefEngine.Graphics;
-using ChefEngine.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -33,7 +32,7 @@ namespace ChefEngineSandbox
         public override void Update(GameTime gameTime)
         {
             // Handle the keyboard input.
-            CheckAndHandleKeyboardInput(Engine.Instance.Input, gameTime);
+            CheckAndHandleKeyboardInput(gameTime);
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
@@ -48,9 +47,8 @@ namespace ChefEngineSandbox
         /// <summary>
         /// Checks the current keyboard state and adjusts the player.
         /// </summary>
-        /// <param name="input">The input manager instance.</param>
         /// <param name="gameTime">The game time instance.</param>
-        private void CheckAndHandleKeyboardInput(InputManager input, GameTime gameTime)
+        private void CheckAndHandleKeyboardInput(GameTime gameTime)
         {
             // Initialize the movement vector.
             Vector2 movement = Vector2.Zero;
@@ -59,31 +57,31 @@ namespace ChefEngineSandbox
             float adjustedMovementSpeed = MovementSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // If the space bar is pressed.
-            if (input.Keyboard.IsKeyDown(Keys.Space))
+            if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.Space))
             {
                 // Multiply the movement speed to apply a sprint mechanic.
                 adjustedMovementSpeed *= 5f;
             }
             // If the W key is pressed.
-            if (input.Keyboard.IsKeyDown(Keys.W))
+            if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.W))
             {
                 // Move the player up.
                 movement.Y -= 1;
             }
             // If the S key is pressed.
-            if (input.Keyboard.IsKeyDown(Keys.S))
+            if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.S))
             {
                 // Move the player down.
                 movement.Y += 1;
             }
             // If the A key is pressed.
-            if (input.Keyboard.IsKeyDown(Keys.A))
+            if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.A))
             {
                 // Move the player left.
                 movement.X -= 1;
             }
             // If the D key is pressed.
-            if (input.Keyboard.IsKeyDown(Keys.D))
+            if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.D))
             {
                 // Move the player right.
                 movement.X += 1;

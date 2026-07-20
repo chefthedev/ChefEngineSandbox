@@ -29,6 +29,7 @@ namespace ChefEngineSandbox
         protected override void Initialize()
         {
             // Call the base class's Initialize method.
+            // The final task this line performs is calling LoadContent() below.
             base.Initialize();
 
             // Initialize the entity list.
@@ -52,11 +53,9 @@ namespace ChefEngineSandbox
             // Load the texture atlas from the json file.
             TextureAtlas atlas = TextureAtlasLoader.Load("images/atlas-definition.json");
 
-            // Create the player and bat animated sprite from the atlas and adjust their scale.
+            // Load the player and bat animated sprites from the atlas.
             _playerSprite = new AnimatedSprite(atlas.GetAnimation("slime-animation"));
             _batSprite = new AnimatedSprite(atlas.GetAnimation("bat-animation"));
-            _playerSprite.Scale = new Vector2(4.0f);
-            _batSprite.Scale = new Vector2(4.0f);
         }
 
         protected override void Update(GameTime gameTime)
