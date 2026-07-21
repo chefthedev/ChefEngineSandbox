@@ -1,8 +1,6 @@
 ﻿using ChefEngine.Core;
 using ChefEngine.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace ChefEngineSandbox
 {
@@ -11,9 +9,6 @@ namespace ChefEngineSandbox
     /// </summary>
     public class SandboxGame : Engine
     {
-        // The entity list.
-        private List<Entity> _entities;
-
         // The player and bat animated sprites.
         private AnimatedSprite _playerSprite;
         private AnimatedSprite _batSprite;
@@ -32,20 +27,17 @@ namespace ChefEngineSandbox
             // The final task this line performs is calling LoadContent() below.
             base.Initialize();
 
-            // Initialize the entity list.
-            _entities = new List<Entity>();
-
             // Adjust the properties of the player and bat animated sprites.
             _playerSprite.Scale = new Vector2(4.0f);
             _batSprite.Scale = new Vector2(4.0f);
 
             // Initialize the player and add it to the entity list.
             Entity player = new Player(new Vector2(0.0f), _playerSprite);
-            _entities.Add(player);
+            Engine.Instance.Entities.Add(player);
 
             // Initialize the bat and add it to the entity list.
             Entity bat = new Bat(new Vector2(50.0f), _batSprite);
-            _entities.Add(bat);
+            Engine.Instance.Entities.Add(bat);
         }
 
         protected override void LoadContent()
@@ -60,33 +52,12 @@ namespace ChefEngineSandbox
 
         protected override void Update(GameTime gameTime)
         {
-            // Update all the entities.
-            foreach (Entity entity in _entities)
-            {
-                entity.Update(gameTime);
-            }
-
             // Call the base class's Update method.
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            // Clear the screen with a salmon color.
-            GraphicsDevice.Clear(Color.Salmon);
-
-            // Begin the sprite batch to prepare for 2D rendering with point sampling for sharp pixel art.
-            SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            // Draw all the entities.
-            foreach (Entity entity in _entities)
-            {
-                entity.Draw();
-            }
-
-            // End the sprite batch to finish 2D rendering.
-            SpriteBatch.End();
-
             // Call the base class's Draw method.
             base.Draw(gameTime);
         }

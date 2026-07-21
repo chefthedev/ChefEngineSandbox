@@ -1,5 +1,7 @@
 ﻿using ChefEngine.Core;
+using ChefEngine.Geometry;
 using ChefEngine.Graphics;
+using ChefEngine.Physics;
 using Microsoft.Xna.Framework;
 
 namespace ChefEngineSandbox
@@ -23,6 +25,12 @@ namespace ChefEngineSandbox
             // Initialize the bat's position and animated sprite.
             Position = position;
             AnimatedSprite = animatedSprite;
+
+            // Initialize the bat's collider.
+            Collider = new RectangleCollider(
+                this,
+                new RectangleF(0, 0, AnimatedSprite.Width, AnimatedSprite.Height)
+            );
         }
 
         public override void Update(GameTime gameTime)
