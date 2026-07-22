@@ -33,11 +33,11 @@ namespace ChefEngineSandbox
 
             // Initialize the player and add it to the entity list.
             Entity player = new Player(new Vector2(0.0f), _playerSprite);
-            Engine.Instance.Entities.Add(player);
+            EntityManager.Add(player);
 
             // Initialize the bat and add it to the entity list.
             Entity bat = new Bat(new Vector2(50.0f), _batSprite);
-            Engine.Instance.Entities.Add(bat);
+            EntityManager.Add(bat);
         }
 
         protected override void LoadContent()
