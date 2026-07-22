@@ -30,10 +30,17 @@ namespace ChefEngineSandbox
             Position = position;
             AnimatedSprite = animatedSprite;
 
+            // Center the animated sprite's origin.
+            AnimatedSprite.SetCenterOrigin();
+
             // Initialize the player's collider.
             Collider = new RectangleCollider(
                 this,
-                new RectangleF(0, 0, AnimatedSprite.Width, AnimatedSprite.Height)
+                new RectangleF(
+                    -AnimatedSprite.Width * 0.5f,
+                    -AnimatedSprite.Height * 0.5f,
+                    AnimatedSprite.Width,
+                    AnimatedSprite.Height)
             );
         }
 
@@ -44,6 +51,9 @@ namespace ChefEngineSandbox
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
+
+            // Update the camera position.
+            Engine.Instance.Camera.Position = Position;
         }
 
         public override void Draw()
