@@ -1,8 +1,10 @@
 ﻿using ChefEngine.Core;
+using ChefEngine.Entities;
 using ChefEngine.Geometry;
 using ChefEngine.Graphics;
 using ChefEngine.Physics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace ChefEngineSandbox
@@ -51,15 +53,12 @@ namespace ChefEngineSandbox
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
-
-            // Update the camera position.
-            Engine.Instance.Camera.Position = Position;
         }
 
-        public override void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw the player's animated sprite at the current position.
-            AnimatedSprite.Draw(Engine.Instance.SpriteBatch, Position);
+            AnimatedSprite.Draw(spriteBatch, Position);
         }
 
         /// <summary>

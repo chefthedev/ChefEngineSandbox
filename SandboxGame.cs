@@ -1,6 +1,8 @@
 ﻿using ChefEngine.Core;
 using ChefEngine.Graphics;
+using ChefEngineSandbox.Worlds;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ChefEngineSandbox
 {
@@ -9,9 +11,11 @@ namespace ChefEngineSandbox
     /// </summary>
     public class SandboxGame : Engine
     {
-        // The player and bat animated sprites.
-        private AnimatedSprite _playerSprite;
-        private AnimatedSprite _batSprite;
+        // The world.
+        private World _world;
+
+        // The texture atlas.
+        private TextureAtlas _atlas;
 
         /// <summary>
         /// Constructor for the SandboxGame class.
@@ -27,39 +31,53 @@ namespace ChefEngineSandbox
             // The final task this line performs is calling LoadContent() below.
             base.Initialize();
 
+            // Initialize the world.
+            _world = new World(GraphicsDevice.Viewport);
+
+            // Initialize the player and add it to the world entity collection.
+            Player player = new Player(
+                new Vector2(0.0f),
+                new AnimatedSprite(_atlas.GetAnimation("slime-animation"))
+            );
+            _world.EntityCollection.Add(player);
+
+            // Initialize the bat and add it to the world entity collection.
+            Bat bat = new Bat(
+                new Vector2(50.0f),
+                new AnimatedSprite(_atlas.GetAnimation("bat-animation"))
+            );
+            _world.EntityCollection.Add(bat);
+
             // Adjust the properties of the player and bat animated sprites.
-            _playerSprite.Scale = new Vector2(4.0f);
-            _batSprite.Scale = new Vector2(4.0f);
+            player.AnimatedSprite.Scale = new Vector2(4.0f);
+            bat.AnimatedSprite.Scale = new Vector2(4.0f);
 
-            // Initialize the player and add it to the entity list.
-            Entity player = new Player(new Vector2(0.0f), _playerSprite);
-            EntityManager.Add(player);
-
-            // Initialize the bat and add it to the entity list.
-            Entity bat = new Bat(new Vector2(50.0f), _batSprite);
-            EntityManager.Add(bat);
+            // Set the world camera target to the player.
+            _world.SetCameraTarget(player);
         }
 
         protected override void LoadContent()
         {
             // Load the texture atlas from the json file.
-            TextureAtlas atlas = TextureAtlasLoader.Load("images/atlas-definition.json");
-
-            // Load the player and bat animated sprites from the atlas.
-            _playerSprite = new AnimatedSprite(atlas.GetAnimation("slime-animation"));
-            _batSprite = new AnimatedSprite(atlas.GetAnimation("bat-animation"));
+            _atlas = TextureAtlasLoader.Load("images/atlas-definition.json");
         }
 
-        protected override void Update(GameTime gameTime)
+        protected override void UpdateGame(GameTime gameTime)
         {
-            // Call the base class's Update method.
-            base.Update(gameTime);
+            // Update the world.
+            _world.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected override void DrawGame(GameTime gameTime)
         {
-            // Call the base class's Draw method.
-            base.Draw(gameTime);
+            // Begin the sprite batch to prepare for 2D rendering with point sampling for sharp pixel art and the camera transform.
+            SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _world.Camera.Transform);
+
+            // Draw the world.
+            _world.Draw(SpriteBatch);
+
+            // End the sprite batch to finish 2D rendering.
+            SpriteBatch.End();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using ChefEngine.Core;
+﻿using ChefEngine.Entities;
 using ChefEngine.Geometry;
 using ChefEngine.Graphics;
 using ChefEngine.Physics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ChefEngineSandbox
 {
@@ -39,10 +40,10 @@ namespace ChefEngineSandbox
             AnimatedSprite.Update(gameTime);
         }
 
-        public override void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw the bat's animated sprite at the current position.
-            AnimatedSprite.Draw(Engine.Instance.SpriteBatch, Position);
+            AnimatedSprite.Draw(spriteBatch, Position);
         }
     }
 }
