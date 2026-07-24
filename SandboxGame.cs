@@ -12,10 +12,10 @@ namespace ChefEngineSandbox
     public class SandboxGame : Engine
     {
         // The world.
-        private World _world;
+        private World _world = null!;
 
         // The texture atlas.
-        private TextureAtlas _atlas;
+        private TextureAtlas _atlas = null!;
 
         /// <summary>
         /// Constructor for the SandboxGame class.
@@ -35,14 +35,14 @@ namespace ChefEngineSandbox
             _world = new World(GraphicsDevice.Viewport);
 
             // Initialize the player and add it to the world entity collection.
-            Player player = new Player(
+            Player player = new(
                 new Vector2(0.0f),
                 new AnimatedSprite(_atlas.GetAnimation("slime-animation"))
             );
             _world.EntityCollection.Add(player);
 
             // Initialize the bat and add it to the world entity collection.
-            Bat bat = new Bat(
+            Bat bat = new(
                 new Vector2(50.0f),
                 new AnimatedSprite(_atlas.GetAnimation("bat-animation"))
             );

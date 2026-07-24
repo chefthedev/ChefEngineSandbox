@@ -2,7 +2,6 @@
 using ChefEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace ChefEngineSandbox.Worlds
 {
@@ -18,7 +17,7 @@ namespace ChefEngineSandbox.Worlds
         public Camera Camera { get; private set; }
 
         // Camera target to optionally base the cameras position on.
-        public Entity CameraTarget { get; private set; }
+        public Entity? CameraTarget { get; private set; }
 
         /// <summary>
         /// Constructor for the World class.
