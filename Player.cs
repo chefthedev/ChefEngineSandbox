@@ -49,7 +49,7 @@ namespace ChefEngineSandbox
         public override void Update(GameTime gameTime)
         {
             // Handle the keyboard input.
-            CheckAndHandleKeyboardInput(gameTime);
+            CheckAndHandleKeyboardInput();
 
             // Update the player's animated sprite.
             AnimatedSprite.Update(gameTime);
@@ -64,8 +64,7 @@ namespace ChefEngineSandbox
         /// <summary>
         /// Checks the current keyboard state and adjusts the player.
         /// </summary>
-        /// <param name="gameTime">The game time instance.</param>
-        private void CheckAndHandleKeyboardInput(GameTime gameTime)
+        private void CheckAndHandleKeyboardInput()
         {
             // Initialize the movement vector.
             Vector2 movement = Vector2.Zero;
