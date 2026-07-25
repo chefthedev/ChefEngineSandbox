@@ -1,5 +1,6 @@
 ﻿using ChefEngine.Entities;
 using ChefEngine.Graphics;
+using ChefEngine.Physics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,6 +14,9 @@ namespace ChefEngineSandbox.Worlds
         // EntityCollection for storing all entities of the world.
         public EntityCollection EntityCollection { get; private set; }
 
+        // Physics System for simulating the physics of the world.
+        public PhysicsSystem PhysicsSystem { get; private set; }
+
         // Camera for moving display of the world.
         public Camera Camera { get; private set; }
 
@@ -25,8 +29,9 @@ namespace ChefEngineSandbox.Worlds
         /// <param name="viewport">The viewport.</param>
         public World(Viewport viewport)
         {
-            // Initialize the entity collection and camera.
+            // Initialize the entity collection, physics system, and camera.
             EntityCollection = new EntityCollection();
+            PhysicsSystem = new PhysicsSystem();
             Camera = new Camera(viewport);
         }
 
@@ -52,6 +57,9 @@ namespace ChefEngineSandbox.Worlds
                 // Update it.
                 entity.Update(gameTime);
             }
+
+            // Update the physics system.
+            PhysicsSystem.Update(gameTime, EntityCollection);
 
             // Apply the pending entity collection changes.
             EntityCollection.ApplyPendingChanges();

@@ -70,13 +70,13 @@ namespace ChefEngineSandbox
             // Initialize the movement vector.
             Vector2 movement = Vector2.Zero;
 
-            // Calculate the adjusted movement speed with delta time.
-            float adjustedMovementSpeed = MovementSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // Initialize the adjusted movement speed.
+            float adjustedMovementSpeed = MovementSpeed;
 
             // If the space bar is pressed.
             if (Engine.Instance.Input.Keyboard.IsKeyDown(Keys.Space))
             {
-                // Multiply the movement speed to apply a sprint mechanic.
+                // Multiply the adjusted movement speed to apply a sprint mechanic.
                 adjustedMovementSpeed *= 5f;
             }
             // If the W key is pressed.
@@ -112,7 +112,7 @@ namespace ChefEngineSandbox
             }
 
             // Apply the movement.
-            Position += movement * adjustedMovementSpeed;
+            Velocity = movement * adjustedMovementSpeed;
         }
     }
 }
