@@ -32,6 +32,9 @@ namespace ChefEngineSandbox
             Position = position;
             AnimatedSprite = animatedSprite;
 
+            // Scale the animated sprite.
+            AnimatedSprite.Scale = new Vector2(4.0f);
+
             // Center the animated sprite's origin.
             AnimatedSprite.SetCenterOrigin();
 
@@ -42,7 +45,8 @@ namespace ChefEngineSandbox
                     -AnimatedSprite.Width * 0.5f,
                     -AnimatedSprite.Height * 0.5f,
                     AnimatedSprite.Width,
-                    AnimatedSprite.Height)
+                    AnimatedSprite.Height
+                )
             );
         }
 
@@ -59,6 +63,9 @@ namespace ChefEngineSandbox
         {
             // Draw the player's animated sprite at the current position.
             AnimatedSprite.Draw(spriteBatch, Position);
+
+            // Draw the player's collider for debugging.
+            Collider?.DebugDraw(spriteBatch, Color.LimeGreen, 1);
         }
 
         /// <summary>

@@ -27,10 +27,21 @@ namespace ChefEngineSandbox
             Position = position;
             AnimatedSprite = animatedSprite;
 
+            // Scale the animated sprite.
+            AnimatedSprite.Scale = new Vector2(4.0f);
+
+            // Center the animated sprite's origin.
+            AnimatedSprite.SetCenterOrigin();
+
             // Initialize the bat's collider.
             Collider = new RectangleCollider(
                 this,
-                new RectangleF(0, 0, AnimatedSprite.Width, AnimatedSprite.Height)
+                new RectangleF(
+                    -AnimatedSprite.Width * 0.5f,
+                    -AnimatedSprite.Height * 0.5f,
+                    AnimatedSprite.Width,
+                    AnimatedSprite.Height
+                )
             );
         }
 
@@ -44,6 +55,9 @@ namespace ChefEngineSandbox
         {
             // Draw the bat's animated sprite at the current position.
             AnimatedSprite.Draw(spriteBatch, Position);
+
+            // Draw the bats's collider for debugging.
+            Collider?.DebugDraw(spriteBatch, Color.Red, 1);
         }
     }
 }

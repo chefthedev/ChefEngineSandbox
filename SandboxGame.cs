@@ -43,14 +43,10 @@ namespace ChefEngineSandbox
 
             // Initialize the bat and add it to the world entity collection.
             Bat bat = new(
-                new Vector2(50.0f),
+                new Vector2(100.0f),
                 new AnimatedSprite(_atlas.GetAnimation("bat-animation"))
             );
             _world.EntityCollection.Add(bat);
-
-            // Adjust the properties of the player and bat animated sprites.
-            player.AnimatedSprite.Scale = new Vector2(4.0f);
-            bat.AnimatedSprite.Scale = new Vector2(4.0f);
 
             // Set the world camera target to the player.
             _world.SetCameraTarget(player);

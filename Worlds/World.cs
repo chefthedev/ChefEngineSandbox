@@ -31,7 +31,7 @@ namespace ChefEngineSandbox.Worlds
         {
             // Initialize the entity collection, physics system, and camera.
             EntityCollection = new EntityCollection();
-            PhysicsSystem = new PhysicsSystem();
+            PhysicsSystem = new PhysicsSystem(Vector2.Zero);
             Camera = new Camera(viewport);
         }
 
