@@ -11,22 +11,22 @@ namespace ChefEngineSandbox.Worlds
     /// </summary>
     public class World
     {
-        // EntityCollection for storing all entities of the world.
+        // Entities of the world.
         public EntityCollection EntityCollection { get; private set; }
 
-        // Physics System for simulating the physics of the world.
+        // Simulates the physics of the world.
         public PhysicsSystem PhysicsSystem { get; private set; }
 
-        // Camera for moving display of the world.
+        // Moving display of the world.
         public Camera Camera { get; private set; }
 
-        // Camera target to optionally base the cameras position on.
+        // Optional target to base the cameras position on.
         public Entity? CameraTarget { get; private set; }
 
         /// <summary>
         /// Constructor for the World class.
         /// </summary>
-        /// <param name="viewport">The viewport.</param>
+        /// <param name="viewport">Viewport of the screen.</param>
         public World(Viewport viewport)
         {
             // Initialize the entity collection, physics system, and camera.
@@ -38,7 +38,7 @@ namespace ChefEngineSandbox.Worlds
         /// <summary>
         /// Set the camera target to the specified entity.
         /// </summary>
-        /// <param name="cameraTarget">The entity to target.</param>
+        /// <param name="cameraTarget">Entity to target.</param>
         public void SetCameraTarget(Entity cameraTarget)
         {
             // Set the target.
@@ -48,7 +48,7 @@ namespace ChefEngineSandbox.Worlds
         /// <summary>
         /// Updates the state of the world.
         /// </summary>
-        /// <param name="gameTime">The game time instance.</param>
+        /// <param name="gameTime">Game time instance.</param>
         public void Update(GameTime gameTime)
         {
             // For each entity in the world.
@@ -75,7 +75,7 @@ namespace ChefEngineSandbox.Worlds
         /// <summary>
         /// Draws the world.
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch to draw the world entities in.</param>
+        /// <param name="spriteBatch">Sprite batch to draw the world entities in.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             // For each entity in the world.

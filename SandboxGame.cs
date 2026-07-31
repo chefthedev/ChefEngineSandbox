@@ -11,10 +11,10 @@ namespace ChefEngineSandbox
     /// </summary>
     public class SandboxGame : Engine
     {
-        // The world.
+        // Game world.
         private World _world = null!;
 
-        // The texture atlas.
+        // Global store of all textures.
         private TextureAtlas _atlas = null!;
 
         /// <summary>

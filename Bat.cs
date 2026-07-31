@@ -12,14 +12,14 @@ namespace ChefEngineSandbox
     /// </summary>
     public class Bat : Entity
     {
-        // The bat's animated sprite.
+        // Animated sprite for display.
         public AnimatedSprite AnimatedSprite { get; private set; }
 
         /// <summary>
         /// Constructor for the bat class.
         /// </summary>
-        /// <param name="position">The initial position of the bat.</param>
-        /// <param name="animatedSprite">The animated sprite of the bat.</param>
+        /// <param name="position">Initial position of the bat.</param>
+        /// <param name="animatedSprite">Animated sprite of the bat.</param>
 
         public Bat(Vector2 position, AnimatedSprite animatedSprite)
         {

@@ -14,17 +14,17 @@ namespace ChefEngineSandbox
     /// </summary>
     public class Player : Entity
     {
-        // The player's movement speed.
+        // Speed of movement.
         public float MovementSpeed { get; private set; } = 50.0f;
 
-        // The player's animated sprite.
+        // Animated sprite for display.
         public AnimatedSprite AnimatedSprite { get; private set; }
 
         /// <summary>
         /// Constructor for the player class.
         /// </summary>
-        /// <param name="position">The initial position of the player.</param>
-        /// <param name="animatedSprite">The animated sprite of the player.</param>
+        /// <param name="position">Initial position of the player.</param>
+        /// <param name="animatedSprite">Animated sprite of the player.</param>
 
         public Player(Vector2 position, AnimatedSprite animatedSprite)
         {
