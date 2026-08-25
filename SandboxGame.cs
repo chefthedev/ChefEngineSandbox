@@ -1,5 +1,6 @@
 ﻿using ChefEngine.Core;
 using ChefEngine.Graphics;
+using ChefEngine.Tilemaps;
 using ChefEngineSandbox.Worlds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +18,9 @@ namespace ChefEngineSandbox
         // Global store of all textures.
         private TextureAtlas _atlas = null!;
 
+        // Global tile set.
+        private TileSet _tileSet = null!;
+
         /// <summary>
         /// Constructor for the SandboxGame class.
         /// </summary>
@@ -32,7 +36,7 @@ namespace ChefEngineSandbox
             base.Initialize();
 
             // Initialize the world.
-            _world = new World(GraphicsDevice.Viewport);
+            _world = new World(GraphicsDevice.Viewport, _tileSet, 100, 100);
 
             // Initialize the player and add it to the world entity collection.
             Player player = new(
@@ -56,6 +60,9 @@ namespace ChefEngineSandbox
         {
             // Load the texture atlas from the json file.
             _atlas = TextureAtlasLoader.Load("images/atlas-definition.json");
+
+            // Load the tile set from the json file.
+            _tileSet = TileSetLoader.Load("images/tileset-definition.json", _atlas);
         }
 
         protected override void UpdateGame(GameTime gameTime)

@@ -40,3 +40,6 @@
 /processorParam:TextureFormat=Color
 /build:images/logo.png
 
+#begin images/tileset-definition.json
+/copy:images/tileset-definition.json
+

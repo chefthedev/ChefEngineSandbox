@@ -1,6 +1,7 @@
 ﻿using ChefEngine.Entities;
 using ChefEngine.Graphics;
 using ChefEngine.Physics;
+using ChefEngine.Tilemaps;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,16 +24,27 @@ namespace ChefEngineSandbox.Worlds
         // Optional target to base the cameras position on.
         public Entity? CameraTarget { get; private set; }
 
+        // Set of tiles used in the world.
+        public TileSet TileSet { get; private set; }
+
+        // Tile map of the world.
+        public TileMap TileMap { get; private set; }
+
         /// <summary>
         /// Constructor for the World class.
         /// </summary>
         /// <param name="viewport">Viewport of the screen.</param>
-        public World(Viewport viewport)
+        /// <param name="tileSet">Tile set for the world.</param>
+        /// <param name="width">Width of the world tile map.</param>
+        /// <param name="height">Height of the world tile map.</param>
+        public World(Viewport viewport, TileSet tileSet, int width, int height)
         {
-            // Initialize the entity collection, physics system, and camera.
+            // Initialize the entity collection, physics system, camera, and tile map.
             EntityCollection = new EntityCollection();
             PhysicsSystem = new PhysicsSystem(Vector2.Zero);
             Camera = new Camera(viewport);
+            TileSet = tileSet;
+            TileMap = new TileMap(width, height);
         }
 
         /// <summary>

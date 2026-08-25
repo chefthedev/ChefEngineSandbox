@@ -1,0 +1,9 @@
+{
+  "tileSize": 32,
+  "definitions": [
+    {
+      "id": 0,
+      "name": "empty"
+    }
+  ]
+}
